@@ -9,6 +9,10 @@ uvicorn = {extras = ["standard"], version = "*"}
 python-dotenv = "*"
 gunicorn = "*"
 celery = "*"
+pytest = "*"
+pytest-asyncio = "*"
+httpx = "*"
+trio = "*"
 
 [dev-packages]
 
