@@ -1,0 +1,35 @@
+version: "3"
+
+services:
+  app:
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+    container_name: app
+    restart: always
+    env_file:
+      - .env
+    ports:
+      - 8080:8080
+    networks:
+      - app
+    depends_on:
+      - redis
+    volumes:
+      - ./:/usr/src/bot
+  redis:
+    image: redis:7-alpine
+    container_name: redis
+    restart: always
+    env_file:
+      - .env
+    networks:
+      - app
+    volumes:
+      - redis-data:/bitnami/redis/data
+networks:
+  app:
+    driver: bridge
+
+volumes:
+  redis-data: {}
