@@ -1,7 +1,7 @@
 from .. import celery_app
 
 
-celery_app.task
+@celery_app.task
 def computeFibonacciTask(n):
     if n <= 1:
         return n

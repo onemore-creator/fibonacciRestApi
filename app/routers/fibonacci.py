@@ -1,7 +1,7 @@
 from fastapi import APIRouter
 from fastapi.encoders import jsonable_encoder
 
-from app.worker.tasks import compute_fibonacci_task 
+from app.worker.tasks import computeFibonacciTask 
 
 router = APIRouter(
     prefix="/fibonacci",
@@ -11,7 +11,7 @@ router = APIRouter(
 @router.get("/count/{number}")
 async def FibValueForNumber(number: int):
     try:
-        result = compute_fibonacci_task.delay(number)
+        result = computeFibonacciTask.delay(number)
         return jsonable_encoder({'input': number, 'task_id': result.id}), 202
     except ValueError:
         return jsonable_encoder({'error': 'Invalid input. Please provide a valid integer.'}), 400
