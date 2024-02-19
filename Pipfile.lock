@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "607e745e1920d35c266d614d74ea189fca44a49aee9976670fd3271f05a5c54e"
+            "sha256": "f518057cc358942abe52eb6ad2574e98075782fd196c3c84dc56239d5422835b"
         },
         "pipfile-spec": 6,
         "requires": {
@@ -131,6 +131,15 @@
             "index": "pypi",
             "markers": "python_version >= '3.8'",
             "version": "==0.109.2"
+        },
+        "fastapi-pagination": {
+            "hashes": [
+                "sha256:a7e5e48cd9d183f29532455a1689dfac575877b7ff10d112ddb56cb3d047a457",
+                "sha256:bcfea8622b48135ef759b926d9d09fa8e16bc8adab26ec2b65d1647e72d39988"
+            ],
+            "index": "pypi",
+            "markers": "python_version >= '3.8' and python_version < '4.0'",
+            "version": "==0.12.15"
         },
         "gmpy2": {
             "hashes": [
@@ -573,7 +582,7 @@
                 "sha256:23478f88c37f27d76ac8aee6c905017a143b0b1b886c3c9f66bc2fd94f9f5783",
                 "sha256:af72aea155e91adfc61c3ae9e0e342dbc0cba726d6cba4b6c72c1f34e47291cd"
             ],
-            "markers": "python_version >= '3.8'",
+            "markers": "python_version < '3.11'",
             "version": "==4.9.0"
         },
         "tzdata": {

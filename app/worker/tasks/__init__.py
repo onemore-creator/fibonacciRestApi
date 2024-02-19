@@ -1,1 +1,1 @@
-from .compute_fibonacci_task import computeFibonacciTask
+from .compute_fibonacci_task import computeFibonacciTask, computeFibonacciTaskReturnSequence

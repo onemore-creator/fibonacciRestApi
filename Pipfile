@@ -15,6 +15,7 @@ trio = "*"
 pydantic-settings = "*"
 celery = {extras = ["redis"], version = "*"}
 gmpy2 = "*"
+fastapi-pagination = "*"
 
 [dev-packages]
 
