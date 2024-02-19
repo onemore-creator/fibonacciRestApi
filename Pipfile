@@ -16,6 +16,7 @@ pydantic-settings = "*"
 celery = {extras = ["redis"], version = "*"}
 gmpy2 = "*"
 fastapi-pagination = "*"
+aioredis = "*"
 
 [dev-packages]
 

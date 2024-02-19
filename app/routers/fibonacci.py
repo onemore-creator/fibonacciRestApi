@@ -4,6 +4,10 @@ from fastapi_pagination import Page, paginate
 
 from app.worker.tasks import computeFibonacciTask, computeFibonacciTaskReturnSequence
 
+from app.config import Config
+
+import aioredis
+
 router = APIRouter(
     prefix="/fibonacci",
     tags=["fibonacci"]
@@ -18,8 +22,6 @@ async def FibValueForNumber(number: int):
         return jsonable_encoder({'error': 'Invalid input. Please provide a valid integer.'}), 400
     except Exception as e:
         return jsonable_encoder({'error': 'Unexpected error!'}), 400
-
-
 
 @router.get("/count/from1toN/{number}", response_model=Page[str])
 async def getFrom1toN(number: int):
