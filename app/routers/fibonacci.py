@@ -1,4 +1,4 @@
-from fastapi import APIRouter
+from fastapi import APIRouter, HTTPException
 from fastapi.encoders import jsonable_encoder
 from fastapi_pagination import Page, paginate
 
@@ -19,9 +19,9 @@ async def FibValueForNumber(number: int):
         result = computeFibonacciTask.delay(number)
         return jsonable_encoder({'result': result.get()}), 200
     except ValueError:
-        return jsonable_encoder({'error': 'Invalid input. Please provide a valid integer.'}), 400
+        raise HTTPException(status_code=400, detail="Invalid input. Please provide a valid integer")
     except Exception as e:
-        return jsonable_encoder({'error': 'Unexpected error!'}), 400
+        raise HTTPException(status_code=400, detail="Unexpected error")
 
 @router.get("/count/from1toN/{number}", response_model=Page[str])
 async def getFrom1toN(number: int):
@@ -29,9 +29,9 @@ async def getFrom1toN(number: int):
         result = computeFibonacciTaskReturnSequence.delay(number)
         return paginate(result.get())
     except ValueError:
-        return jsonable_encoder({'error': 'Invalid input. Please provide a valid integer.'}), 400
+        raise HTTPException(status_code=400, detail="Invalid input. Please provide a valid integer")
     except Exception as e:
-        return jsonable_encoder({'error': 'Unexpected error!'}), 400
+        raise HTTPException(status_code=400, detail="Unexpected error")
 
 
 @router.post("/blacklist/add/{number}")
