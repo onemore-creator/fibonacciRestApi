@@ -8,11 +8,12 @@ fastapi = "*"
 uvicorn = {extras = ["standard"], version = "*"}
 python-dotenv = "*"
 gunicorn = "*"
-celery = "*"
 pytest = "*"
 pytest-asyncio = "*"
 httpx = "*"
 trio = "*"
+pydantic-settings = "*"
+celery = {extras = ["redis"], version = "*"}
 
 [dev-packages]
 

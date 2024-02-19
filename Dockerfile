@@ -15,6 +15,8 @@ RUN pipenv sync
 
 FROM python:3.10-slim-buster as runtime
 
+RUN apt-get update && apt-get install -y supervisor
+
 RUN useradd --create-home developer
 WORKDIR /home/developer
 USER developer
@@ -22,4 +24,4 @@ USER developer
 COPY --from=builder /usr/src/.venv/ .venv/
 COPY . .
 
-ENTRYPOINT .venv/bin/python -m gunicorn --bind :8080 --workers 1 --threads 8 app.main:app --worker-class uvicorn.workers.UvicornH11Worker --preload --timeout 60 --worker-tmp-dir /dev/shm
+ENTRYPOINT ["/usr/bin/supervisord"]
