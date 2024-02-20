@@ -7,6 +7,10 @@ services:
       dockerfile: ./Dockerfile
     container_name: app
     restart: always
+    environment:
+      DEBUG: 1
+    volumes:
+      - ./app:/home/developer/app
     env_file:
       - .env
     ports:
