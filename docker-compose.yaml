@@ -19,6 +19,24 @@ services:
       - app
     depends_on:
       - redis
+
+  tests_service:
+      build:
+        context: .
+        dockerfile: ./tests/Dockerfile
+      container_name: test_service
+      profiles: [test]
+      volumes:
+        - ./app:/home/developer/app
+      env_file:
+        - .env
+      networks:
+        - app
+      depends_on:
+        - app
+
+    
+
   redis:
     image: redis:7-alpine
     container_name: redis

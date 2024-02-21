@@ -17,7 +17,7 @@ def test_fibonacci_value_for_number():
 def test_get_fibonacci_sequence_from_1_to_n():
     response = client.get("/fibonacci/count/from1toN/10")
     assert response.status_code == 200
-    assert response.json() == {"items": ["0", "1", "1", "2", "3", "5", "8", "13", "21", "34"]}
+    assert response.json()["items"] == {"items": ["0", "1", "1", "2", "3", "5", "8", "13", "21", "34"]}
 
 def test_add_number_to_blacklist():
     response = client.post("/fibonacci/blacklist/add/5")
