@@ -5,6 +5,8 @@ from fastapi_pagination import Page, paginate
 from app.worker.tasks import computeFibonacciTask, computeFibonacciTaskReturnSequence
 
 from app.utils.redis_wrapper import redisWrapper
+from app.models.blacklist_model import Blacklist
+
 import logging
 
 router = APIRouter(
@@ -37,15 +39,22 @@ async def getFrom1toN(number: int, cache = Depends(redisWrapper.getRedisInstance
 
 @router.post("/blacklist/add/{number}", status_code=200)
 async def addNumberToBlacklist(number: int, response: Response, cache = Depends(redisWrapper.getRedisInstance)):
-    result = await cache.execute_command("sadd", "numbers:blacklist", number)
-    if not result:
+    cmdExecutionResult = await cache.execute_command("sadd", "numbers:blacklist", number)
+    if not cmdExecutionResult:
         response.status_code = status.HTTP_500_INTERNAL_SERVER_ERROR
-    blacklist = await cache.execute_command("smembers", "numbers:blacklist")
-    return result
+    return cmdExecutionResult
 
-@router.delete("/blacklist/delete/{number}", status_code=200)
+@router.delete("/blacklist/delete/{number}", status_code=204)
 async def deleteNumberFromBlacklist(number: int, response: Response, cache = Depends(redisWrapper.getRedisInstance)):
-    result = await cache.execute_command("srem", "numbers:blacklist", number)
-    if not result:
+    cmdExecutionResult = await cache.execute_command("srem", "numbers:blacklist", number)
+    if not cmdExecutionResult:
         response.status_code = status.HTTP_500_INTERNAL_SERVER_ERROR
-    return result
+    return cmdExecutionResult
+
+@router.get("/blacklist/get", status_code=200)
+async def getNumberFromBlacklist(response: Response, cache = Depends(redisWrapper.getRedisInstance)) -> Blacklist:
+    blacklist = await cache.execute_command("smembers", "numbers:blacklist")
+    blacklist = list(map(lambda x : str(int(x)), blacklist))
+    if not blacklist:
+        response.status_code = status.HTTP_500_INTERNAL_SERVER_ERROR
+    return Blacklist(numbers=blacklist)
