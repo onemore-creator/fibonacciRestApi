@@ -7,7 +7,7 @@ class RedisWrapper:
         self.pool = aioredis.ConnectionPool.from_url("redis://redis", max_connections=10)
 
     def getRedisInstance(self) -> aioredis.Redis:
-        redis = aioredis.Redis(connection_pool=self.pool, decode_responses=True)
+        redis = aioredis.Redis(connection_pool=self.pool, decode_responses=True, db=1)
         return redis
 
 redisWrapper = RedisWrapper()
