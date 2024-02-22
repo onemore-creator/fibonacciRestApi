@@ -1,5 +1,5 @@
 from pydantic import BaseModel
 
-class Blacklist(BaseModel):
+class BlacklistResponse(BaseModel):
     numbers:  list[str]
 
