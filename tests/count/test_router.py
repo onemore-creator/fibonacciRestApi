@@ -12,4 +12,4 @@ client = TestClient(app)
 def test_fibonacci_value_for_number():
     response = client.get("/fibonacci/count/10")
     assert response.status_code == 200
-    assert response.json()[0] == {"result": "55"}
+    assert response.json() == {"number": "55"}
